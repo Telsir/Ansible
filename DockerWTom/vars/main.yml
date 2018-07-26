@@ -1,0 +1,4 @@
+---
+# vars file for DockerWTom
+builddir: /opt/Docker_tmp
+javaopts: /etc/default

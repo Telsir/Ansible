@@ -1,0 +1,15 @@
+---
+- name: Start remote docker container
+  hosts: linuxdocker
+  become: yes
+
+
+  tasks: 
+    - name: Start a container
+      shell: "docker run -d -p 8080:8080 tomcat-sample"
+
+#      docker_container:
+#        name: tomcat-sample
+#        image: tomcat-sample:latest
+#        state: present
+

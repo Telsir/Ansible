@@ -1,0 +1,5 @@
+---
+# vars file for tomcat
+dst_folder: /usr/share/tomcat8/webapps
+tomcat_user_dstf: /etc/tomcat8
+tomcat_default: /etc/default

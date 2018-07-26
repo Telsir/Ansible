@@ -1,0 +1,8 @@
+---
+- name: Building a new docker container with an application
+  hosts: linuxdocker
+  become: yes
+
+
+  roles:
+    - DockerWTom

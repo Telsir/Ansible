@@ -1,0 +1,33 @@
+---
+# tasks file for DockerWTom
+
+- name: Create directory
+  file: 
+    path: "{{ builddir }}" 
+    state: directory
+
+- name: Copying Dockerfile to the builddir
+  copy:
+    src: Dockerfile 
+    dest: "{{ builddir }}"
+
+- name: Copying JAVAOPTS to the builddir
+  copy:
+    src: tomcat8
+    dest: "{{ builddir }}"
+
+- name: Copying sample.war to the builddir
+  copy:
+    src: sample.war
+    dest: "{{ builddir }}"
+
+- name: Installing PIP
+  apt: name=python-pip state=present
+
+- name: Installing docker-py
+  pip: name=docker-py state=present
+
+- name: Build image
+  docker_image:
+     path: "{{ builddir }}"
+     name: tomcat-sample

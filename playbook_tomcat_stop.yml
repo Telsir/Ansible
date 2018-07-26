@@ -1,0 +1,20 @@
+---
+- name: stop application in Tomcat8
+  hosts: linuxtomcat
+  become: yes
+
+
+  tasks: 
+    - name: stop tomcat application
+      uri:
+        url: http://localhost:8080/manager/text/stop?path=/sample
+#        method: GET
+        user: ansible
+        password: secret
+        return_content: yes
+      register: result
+
+    - name: Showing Result
+      debug: 
+        var: result.content
+

@@ -1,0 +1,8 @@
+---
+- name: Installing Java + tomcat at my own host
+  hosts: linuxtomcat 
+  become: yes
+ 
+
+  roles:
+    - tomcat 

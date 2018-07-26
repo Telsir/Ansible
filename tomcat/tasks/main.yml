@@ -1,0 +1,48 @@
+---
+# tasks file for tomcat
+- name: Install basic software
+  apt:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - default-jdk
+    - tomcat8
+    - tomcat8-admin
+
+- name: Copying .war APP to dst_folder
+  copy: 
+    src=sample.war dest={{ dst_folder }}/ mode=0755 
+  notify: Restart tomcat8
+
+- name: Copying JAVA_OPTS file to enable IPv4 Protocol
+  copy:
+    src=tomcat8 dest={{ tomcat_default }}/ mode=0644
+  notify: Restart tomcat8
+
+- name: Copying tomcat-user.xml to dst_folder
+  copy:
+    src: "{{ item }}"
+    dest: "{{ tomcat_user_dstf }}" 
+    mode: 0755
+  with_items:
+    - tomcat-users.xml
+    - server.xml
+  notify: Restart tomcat8
+
+- name: Adding autostart + starting service Tomcat
+  service: name=tomcat8 state=started enabled=yes
+
+- name: Setting up correct permissions
+  file: 
+    path: "{{ item }}"
+    state: directory
+    directory_mode: 0755
+    owner: tomcat8
+    group: tomcat8
+    recurse: yes
+  with_items:
+   - "/var/chache/tomcat8"
+   - "/usr/share/tomcat8"
+   - "/var/log/tomcat8"
+   - "/etc/tomcat8"
+

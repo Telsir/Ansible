@@ -1,0 +1,3 @@
+---
+# vars file for Docker_andotherstuff
+dst_folder: /etc/apt/sources.list.d

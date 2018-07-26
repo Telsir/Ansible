@@ -1,0 +1,8 @@
+---
+- name: Installing Docker at my own host
+  hosts: linuxdocker  
+  become: yes
+ 
+
+  roles:
+    - Docker_andotherstuff 

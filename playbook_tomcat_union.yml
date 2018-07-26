@@ -1,0 +1,37 @@
+---
+- name: stop application in Tomcat8
+  hosts: linuxdocker
+  become: yes
+
+
+  vars:
+    stopme: http://localhost:8080/manager/text/stop?path=/sample
+    startme: http://localhost:8080/manager/text/stop?path=/sample
+
+  tasks: 
+    - name: Controlling tomcat Application
+      
+      block:
+        - uri:
+            url: "{{stopme}}" 
+            user: ansible
+            password: secret
+            return_content: yes
+          register: result
+      when: url == "{{ stopme }}"
+
+    - name: Controlling Tomcat Applications
+
+      block:
+        - uri:
+            url: "{{ startme }}"
+            user: ansible
+            password: secret
+            return_content: yes
+          register: result
+      when: url == "{{ startmeme }}"
+
+    - name: Showing Result
+      debug: 
+        var: result.content
+
